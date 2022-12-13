@@ -26,11 +26,30 @@ DROP TABLE IF EXISTS `TEST`.`products` ;
 CREATE TABLE IF NOT EXISTS `TEST`.`products` (
   `sku` VARCHAR(45) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
-  `brand` VARCHAR(50) NULL DEFAULT NULL,
+  `brand` VARCHAR(50) NOT NULL,
   `size` VARCHAR(10) NULL DEFAULT NULL,
   `price` INTEGER NOT NULL,
   `principalImage` TEXT NOT NULL,
   PRIMARY KEY (`sku`),
   UNIQUE INDEX `SKU_UNIQUE` (`sku` ASC))
 ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+-- -----------------------------------------------------
+-- Table `TEST`.`products_images`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `TEST`.`products_images` ;
+
+CREATE TABLE IF NOT EXISTS `TEST`.`products_images` (
+  `code` INTEGER NOT NULL AUTO_INCREMENT,
+  `products_sku` VARCHAR(45) NOT NULL,
+  `url` TEXT NULL,
+  PRIMARY KEY (`code`, `products_sku`),
+  UNIQUE INDEX `fk_products_images_products_idx` (`products_sku` ASC),
+  CONSTRAINT `fk_products_images_products`
+    FOREIGN KEY (`products_sku`)
+    REFERENCES `TEST`.`products` (`sku`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 DEFAULT CHARACTER SET = utf8;

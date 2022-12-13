@@ -23,7 +23,7 @@
 
 ## Compilación y Ejecución
 
-* `go run api/api.go`
+* `MYSQL_CONNECTION=root:123456@tcp(localhost:3306)/TEST go run api/api.go`
 
 ## Link Swagger
 
@@ -31,7 +31,7 @@
 
 ## Ejecución de Tests
 
-* `go test ./...`
+* `MYSQL_CONNECTION=root:123456@tcp(localhost:3306)/TEST go test ./...`
 
 ## Docker
 

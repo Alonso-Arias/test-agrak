@@ -22,6 +22,8 @@ func (e CustomError) Error() string {
 var (
 	BadRequest    = CustomError{Message: "BadRequest", Code: 400, InternalCode: "BADREQUEST"}
 	Unauthorized  = CustomError{Message: "Unauthorized", Code: 401, InternalCode: "UNAUTHORIZED"}
-	NotFound      = CustomError{Message: "NotFound", Code: 403, InternalCode: "NOT_FOUND"}
+	NotFound      = CustomError{Message: "NotFound", Code: 404, InternalCode: "NOT_FOUND"}
 	InternalError = CustomError{Message: "Error", Code: 500, InternalCode: "INTERNAL_SERVER_ERROR"}
+
+	ProductsNotFound = CustomError{Message: "Products not found", Code: 404, InternalCode: "PRODUCTS_NOT_FOUND"}
 )
