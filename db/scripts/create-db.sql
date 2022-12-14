@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `TEST`.`products` (
   `brand` VARCHAR(50) NOT NULL,
   `size` VARCHAR(10) NULL DEFAULT NULL,
   `price` INTEGER NOT NULL,
-  `principalImage` TEXT NOT NULL,
+  `principal_image` TEXT NOT NULL,
   PRIMARY KEY (`sku`),
   UNIQUE INDEX `SKU_UNIQUE` (`sku` ASC))
 ENGINE = InnoDB

@@ -32,7 +32,7 @@
 
 ## Ejecución de Tests
 
-* `MYSQL_CONNECTION=root:123456@tcp(localhost:3306)/TEST go test ./...`
+* `MYSQL_CONNECTION=root:123456@tcp(localhost:3306)/TEST go test -v ./db/dao`
 
 ## Docker
 

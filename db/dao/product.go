@@ -120,11 +120,11 @@ func (pd *ProductDAOImpl) Update(ctx context.Context, product model.Product) err
 	tx := db.Model(&product).
 		Where("sku = ?", product.Sku).
 		Updates(map[string]interface{}{
-			"name":           gorm.Expr("IF(? = '', name, ?)", product.Name, product.Name),
-			"brand":          gorm.Expr("IF(? = '', brand, ?)", product.Brand, product.Brand),
-			"size":           gorm.Expr("IF(? = '', size, ?)", product.Size, product.Size),
-			"price":          gorm.Expr("IF(? = '', price, ?)", product.Price, product.Price),
-			"principalImage": gorm.Expr("IF(? = '', principalImage, ?)", product.PrincipalImage, product.PrincipalImage),
+			"name":            gorm.Expr("IF(? = '', name, ?)", product.Name, product.Name),
+			"brand":           gorm.Expr("IF(? = '', brand, ?)", product.Brand, product.Brand),
+			"size":            gorm.Expr("IF(? = '', size, ?)", product.Size, product.Size),
+			"price":           gorm.Expr("IF(? = '', price, ?)", product.Price, product.Price),
+			"principal_image": gorm.Expr("IF(? = '', principal_image, ?)", product.PrincipalImage, product.PrincipalImage),
 		})
 
 	if tx.Error != nil {

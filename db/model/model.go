@@ -5,7 +5,7 @@ type Product struct {
 	Name           string
 	Brand          string
 	Size           string
-	Price          string
+	Price          int
 	PrincipalImage string
 }
 

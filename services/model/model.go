@@ -6,7 +6,7 @@ type Product struct {
 	Name             string   `json:"name" validate:"empty=false"`
 	Brand            string   `json:"brand" validate:"empty=false"`
 	Size             string   `json:"size,omitempty"`
-	Price            string   `json:"price" validate:"empty=false"`
+	Price            int      `json:"price" validate:"empty=false"`
 	PrincipalImage   string   `json:"principalImage" validate:"empty=false"`
 	AdditionalImages []string `json:"additionalImages,omitempty"`
 }
