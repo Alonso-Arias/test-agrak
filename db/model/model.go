@@ -5,13 +5,13 @@ type Product struct {
 	Name           string
 	Brand          string
 	Size           string
-	Price          string
+	Price          int
 	PrincipalImage string
-	ProductsImages []ProductImage `gorm:"-"`
 }
 
 type ProductImage struct {
-	Url string
+	ProductsSku string
+	Url         string
 }
 
 func (ProductImage) TableName() string {

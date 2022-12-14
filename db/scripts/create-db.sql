@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `TEST`.`products` (
   `brand` VARCHAR(50) NOT NULL,
   `size` VARCHAR(10) NULL DEFAULT NULL,
   `price` INTEGER NOT NULL,
-  `principalImage` TEXT NOT NULL,
+  `principal_image` TEXT NOT NULL,
   PRIMARY KEY (`sku`),
   UNIQUE INDEX `SKU_UNIQUE` (`sku` ASC))
 ENGINE = InnoDB
@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS `TEST`.`products_images` (
   `products_sku` VARCHAR(45) NOT NULL,
   `url` TEXT NULL,
   PRIMARY KEY (`code`, `products_sku`),
-  UNIQUE INDEX `fk_products_images_products_idx` (`products_sku` ASC),
   CONSTRAINT `fk_products_images_products`
     FOREIGN KEY (`products_sku`)
     REFERENCES `TEST`.`products` (`sku`)

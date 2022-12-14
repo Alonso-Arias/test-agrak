@@ -3,14 +3,10 @@
 ## Requisitos
 
 * Go 1.17
-* Swaggo( go get -u -v github.com/swaggo/swag/cmd/swag )
+* Swaggo( go get -u -v github.com/swaggo/echo-swagger@v1.3.5 )
 * Echo Swagger ( go get -u -v github.com/swaggo/echo-swagger )
 * MySQL 5.7.x ( docker pull mysql:5.7.33 )
-
-* `export PATH=$(go env GOPATH)/bin:$PATH`
-* `swag init -g api/api.go -o api/docs`
-
-
+* go get github.com/alecthomas/template
 ## Ambiente Local ( BD basado en Docker )
 
 * BD: `docker run --name test-db -e MYSQL_ROOT_PASSWORD=123456 -d -p 3306:3306 mysql:5.7.33`
@@ -20,6 +16,11 @@
 * Copiar scripts dentro del contenedor : `docker cp ./db/scripts/ test-db:/tmp/`
 * Eliminación y creación de esquema y tablas : `docker exec -t test-db /bin/sh -c 'mysql -u root -p123456 </tmp/scripts/create-db.sql'`
 * Cargar datos de prueba : `docker exec -t test-db /bin/sh -c 'mysql -u root -p123456 </tmp/scripts/basic-data.sql'`
+
+## Generación Documentación Swagger
+
+* `export PATH=$(go env GOPATH)/bin:$PATH`
+* `swag init -g api/api.go -o api/docs`
 
 ## Compilación y Ejecución
 
@@ -31,7 +32,7 @@
 
 ## Ejecución de Tests
 
-* `MYSQL_CONNECTION=root:123456@tcp(localhost:3306)/TEST go test ./...`
+* `MYSQL_CONNECTION=root:123456@tcp(localhost:3306)/TEST go test -v ./db/dao`
 
 ## Docker
 

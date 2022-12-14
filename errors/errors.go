@@ -25,5 +25,6 @@ var (
 	NotFound      = CustomError{Message: "NotFound", Code: 404, InternalCode: "NOT_FOUND"}
 	InternalError = CustomError{Message: "Error", Code: 500, InternalCode: "INTERNAL_SERVER_ERROR"}
 
-	ProductsNotFound = CustomError{Message: "Products not found", Code: 404, InternalCode: "PRODUCTS_NOT_FOUND"}
+	ProductsNotFound    = CustomError{Message: "Products not found", Code: 404, InternalCode: "PRODUCTS_NOT_FOUND"}
+	ProductAlreadySaved = CustomError{Message: "Products already saved", Code: 400, InternalCode: "PRODUCTS_ALREADY_SAVED"}
 )
