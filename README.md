@@ -7,9 +7,6 @@
 * Echo Swagger ( go get -u -v github.com/swaggo/echo-swagger )
 * MySQL 5.7.x ( docker pull mysql:5.7.33 )
 
-* `export PATH=$(go env GOPATH)/bin:$PATH`
-* `swag init -g api/api.go -o api/docs`
-
 
 ## Ambiente Local ( BD basado en Docker )
 
@@ -20,6 +17,11 @@
 * Copiar scripts dentro del contenedor : `docker cp ./db/scripts/ test-db:/tmp/`
 * Eliminación y creación de esquema y tablas : `docker exec -t test-db /bin/sh -c 'mysql -u root -p123456 </tmp/scripts/create-db.sql'`
 * Cargar datos de prueba : `docker exec -t test-db /bin/sh -c 'mysql -u root -p123456 </tmp/scripts/basic-data.sql'`
+
+## Generación Documentación Swagger
+
+* `export PATH=$(go env GOPATH)/bin:$PATH`
+* `swag init -g api/api.go -o api/docs`
 
 ## Compilación y Ejecución
 

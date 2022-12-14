@@ -1,5 +1,6 @@
 package model
 
+// swagger:model Product
 type Product struct {
 	Sku              string   `json:"sku"`
 	Name             string   `json:"name"`

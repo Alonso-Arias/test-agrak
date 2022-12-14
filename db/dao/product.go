@@ -32,11 +32,11 @@ func (pd *ProductDAOImpl) FindAll(ctx context.Context) ([]model.Product, error) 
 
 	db := base.GetDB()
 
-	products := &[]model.Product{}
+	products := []model.Product{}
 	err := db.Find(&products).Error
 
 	if err != nil {
-		log.WithError(err).Error("get user fails")
+		log.WithError(err).Error("get products fails")
 		return []model.Product{}, err
 	} else if products == nil {
 		return []model.Product{}, gorm.ErrRecordNotFound
@@ -44,6 +44,29 @@ func (pd *ProductDAOImpl) FindAll(ctx context.Context) ([]model.Product, error) 
 
 	log.Debugf("%v", products)
 
-	return *products, nil
+	return products, nil
+
+}
+
+// FindAll -
+func (pd *ProductDAOImpl) Get(ctx context.Context, sku string) (model.Product, error) {
+
+	log := loggerf.WithField("struct", "ProductDAOImpl").WithField("function", "Get")
+
+	db := base.GetDB()
+
+	product := model.Product{}
+	err := db.Where("SKU = ?", sku).FirstOrInit(&product).Error
+
+	if err != nil {
+		log.WithError(err).Error("get products fails")
+		return model.Product{}, err
+	} else if product.Sku == "" {
+		return model.Product{}, gorm.ErrRecordNotFound
+	}
+
+	log.Debugf("%v", product)
+
+	return product, nil
 
 }

@@ -7,7 +7,6 @@ type Product struct {
 	Size           string
 	Price          string
 	PrincipalImage string
-	ProductsImages []ProductImage `gorm:"-"`
 }
 
 type ProductImage struct {
