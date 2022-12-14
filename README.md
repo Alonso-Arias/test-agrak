@@ -3,11 +3,10 @@
 ## Requisitos
 
 * Go 1.17
-* Swaggo( go get -u -v github.com/swaggo/swag/cmd/swag )
+* Swaggo( go get -u -v github.com/swaggo/echo-swagger@v1.3.5 )
 * Echo Swagger ( go get -u -v github.com/swaggo/echo-swagger )
 * MySQL 5.7.x ( docker pull mysql:5.7.33 )
-
-
+* go get github.com/alecthomas/template
 ## Ambiente Local ( BD basado en Docker )
 
 * BD: `docker run --name test-db -e MYSQL_ROOT_PASSWORD=123456 -d -p 3306:3306 mysql:5.7.33`

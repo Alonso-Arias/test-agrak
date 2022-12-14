@@ -1,0 +1,324 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server Petstore server.",
+        "title": "Swagger Example API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:1323",
+    "basePath": "/api/v1",
+    "paths": {
+        "/product": {
+            "put": {
+                "description": "actualiza un producto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "update product by sku",
+                "operationId": "productPut",
+                "parameters": [
+                    {
+                        "description": "Product",
+                        "name": "UpdateProductRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/product.UpdateProductRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.UpdateProductResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "guarda un producto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "save product",
+                "operationId": "productPost",
+                "parameters": [
+                    {
+                        "description": "Product",
+                        "name": "SaveProductRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/product.SaveProductRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.SaveProductResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{sku}": {
+            "get": {
+                "description": "obtiene producto por sku",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "get product by sku",
+                "operationId": "productGet",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Sku",
+                        "name": "sku",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.GetProductResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "elimina un producto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "delete product by sku",
+                "operationId": "productDelete",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Sku",
+                        "name": "sku",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.DeleteProductResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/findAll": {
+            "get": {
+                "description": "obtiene todos los productos",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Find all products",
+                "operationId": "findAllProductsGet",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.FindAllProductsResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "errors.CustomError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "internalCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.Product": {
+            "type": "object",
+            "properties": {
+                "brand": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "principalImage": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "sku": {
+                    "type": "string"
+                }
+            }
+        },
+        "product.DeleteProductResponse": {
+            "type": "object"
+        },
+        "product.FindAllProductsResponse": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Product"
+                    }
+                }
+            }
+        },
+        "product.GetProductResponse": {
+            "type": "object",
+            "properties": {
+                "product": {
+                    "type": "object",
+                    "$ref": "#/definitions/model.Product"
+                }
+            }
+        },
+        "product.SaveProductRequest": {
+            "type": "object",
+            "properties": {
+                "product": {
+                    "type": "object",
+                    "$ref": "#/definitions/model.Product"
+                }
+            }
+        },
+        "product.SaveProductResponse": {
+            "type": "object"
+        },
+        "product.UpdateProductRequest": {
+            "type": "object",
+            "properties": {
+                "product": {
+                    "type": "object",
+                    "$ref": "#/definitions/model.Product"
+                }
+            }
+        },
+        "product.UpdateProductResponse": {
+            "type": "object"
+        }
+    }
+}

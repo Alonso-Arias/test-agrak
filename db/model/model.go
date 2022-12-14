@@ -10,7 +10,8 @@ type Product struct {
 }
 
 type ProductImage struct {
-	Url string
+	ProductsSku string
+	Url         string
 }
 
 func (ProductImage) TableName() string {

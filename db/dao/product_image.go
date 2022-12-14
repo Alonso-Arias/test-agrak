@@ -44,3 +44,41 @@ func (pid *ProductImageDAOImpl) FindAll(ctx context.Context, sku string) ([]mode
 	return productsImages, nil
 
 }
+
+func (pid *ProductImageDAOImpl) UpdateProductImages(ctx context.Context, sku string, productImages model.ProductImage) error {
+
+	log := loggerf.WithField("struct", "ProductDAOImpl").WithField("function", "UpdateProductImages")
+
+	db := base.GetDB()
+
+	tx := db.Model(&productImages).
+		Where("products_sku = ?", sku).
+		Updates(map[string]interface{}{
+			"url": gorm.Expr("IF(? = '', url, ?)", productImages.Url, productImages.Url),
+		})
+
+	if tx.Error != nil {
+		log.Debugf("%v", tx.Error)
+		return tx.Error
+	}
+
+	return nil
+}
+
+func (pid *ProductImageDAOImpl) SaveProductImages(ctx context.Context, sku string, productImages model.ProductImage) error {
+
+	log := loggerf.WithField("struct", "ProductDAOImpl").WithField("function", "SaveProductImages")
+
+	db := base.GetDB()
+
+	err := db.Create(&productImages)
+
+	if err.Error != nil {
+		log.Debugf("%v", err.Error)
+		return err.Error
+	}
+
+	log.Infof("Save product Images Sucessfull\n")
+
+	return nil
+}

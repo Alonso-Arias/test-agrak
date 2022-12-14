@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	_ "github.com/Alonso-Arias/test-agrak/api/docs"
 	errs "github.com/Alonso-Arias/test-agrak/errors"
 	"github.com/Alonso-Arias/test-agrak/log"
 	"github.com/Alonso-Arias/test-agrak/services/product"
@@ -29,11 +30,11 @@ var loggerf = log.LoggerJSON().WithField("package", "main")
 // @BasePath /api/v1
 func main() {
 	e := echo.New()
-	/* 	e.POST("/api/v1/product", findAllProductsGet) */
+	e.POST("/api/v1/product", productPost)
 	e.GET("/api/v1/products/findAll", findAllProductsGet)
 	e.GET("/api/v1/product/:sku", productGet)
-	/* 	e.PUT("/api/v1/product/:sku", findAllProductsGet)
-	   	e.DELETE("/api/v1/product/:sku", findAllProductsGet) */
+	e.PUT("/api/v1/product", productPut)
+	e.DELETE("/api/v1/product/:sku", productDelete)
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.Logger.Fatal(e.Start(":1323"))
 
@@ -81,6 +82,100 @@ func productGet(c echo.Context) error {
 	}
 
 	res, err := product.ProductService{}.GetProduct(context.TODO(), req)
+	if ce, ok := err.(errs.CustomError); ok {
+		return c.JSON(ce.Code, err)
+	} else if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
+
+// delete product
+// @Summary delete product by sku
+// @tags Product
+// @Description elimina un producto
+// @ID productDelete
+// @Accept  json
+// @Produce  json
+// @Param sku path string true "Sku"
+// @Success 200  {object} product.DeleteProductResponse
+// @Failure 404 {object}  errors.CustomError
+// @Failure 500 {object}  errors.CustomError
+// @Router /product/{sku} [delete]
+func productDelete(c echo.Context) error {
+
+	req := product.DeleteProductRequest{
+		Sku: c.Param("sku"),
+	}
+
+	res, err := product.ProductService{}.DeleteProduct(context.TODO(), req)
+	if ce, ok := err.(errs.CustomError); ok {
+		return c.JSON(ce.Code, err)
+	} else if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
+
+// update product
+// @Summary update product by sku
+// @tags Product
+// @Description actualiza un producto
+// @ID productPut
+// @Accept  json
+// @Produce  json
+// @Param UpdateProductRequest body product.UpdateProductRequest true "Product"
+// @Success 200  {object} product.UpdateProductResponse
+// @Failure 404 {object}  errors.CustomError
+// @Failure 500 {object}  errors.CustomError
+// @Router /product [put]
+func productPut(c echo.Context) error {
+
+	log := loggerf.WithField("func", "productPut")
+
+	req := product.UpdateProductRequest{}
+
+	if err := c.Bind(req); err != nil {
+		log.WithError(err).Error("Binding error")
+		return c.JSON(http.StatusBadRequest, err)
+	}
+
+	res, err := product.ProductService{}.UpdateProduct(context.TODO(), req)
+	if ce, ok := err.(errs.CustomError); ok {
+		return c.JSON(ce.Code, err)
+	} else if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
+
+// save product
+// @Summary save product
+// @tags Product
+// @Description guarda un producto
+// @ID productPost
+// @Accept  json
+// @Produce  json
+// @Param SaveProductRequest body product.SaveProductRequest true "Product"
+// @Success 200  {object} product.SaveProductResponse
+// @Failure 404 {object}  errors.CustomError
+// @Failure 500 {object}  errors.CustomError
+// @Router /product [post]
+func productPost(c echo.Context) error {
+
+	log := loggerf.WithField("func", "productPost")
+
+	req := product.SaveProductRequest{}
+
+	if err := c.Bind(req); err != nil {
+		log.WithError(err).Error("Binding error")
+		return c.JSON(http.StatusBadRequest, err)
+	}
+
+	res, err := product.ProductService{}.SaveProduct(context.TODO(), req)
 	if ce, ok := err.(errs.CustomError); ok {
 		return c.JSON(ce.Code, err)
 	} else if err != nil {

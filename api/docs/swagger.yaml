@@ -1,0 +1,216 @@
+basePath: /api/v1
+definitions:
+  errors.CustomError:
+    properties:
+      code:
+        type: integer
+      internalCode:
+        type: string
+      message:
+        type: string
+    type: object
+  model.Product:
+    properties:
+      brand:
+        type: string
+      name:
+        type: string
+      price:
+        type: string
+      principalImage:
+        type: string
+      size:
+        type: string
+      sku:
+        type: string
+    type: object
+  product.DeleteProductResponse:
+    type: object
+  product.FindAllProductsResponse:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/model.Product'
+        type: array
+    type: object
+  product.GetProductResponse:
+    properties:
+      product:
+        $ref: '#/definitions/model.Product'
+        type: object
+    type: object
+  product.SaveProductRequest:
+    properties:
+      product:
+        $ref: '#/definitions/model.Product'
+        type: object
+    type: object
+  product.SaveProductResponse:
+    type: object
+  product.UpdateProductRequest:
+    properties:
+      product:
+        $ref: '#/definitions/model.Product'
+        type: object
+    type: object
+  product.UpdateProductResponse:
+    type: object
+host: localhost:1323
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Petstore server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /product:
+    post:
+      consumes:
+      - application/json
+      description: guarda un producto
+      operationId: productPost
+      parameters:
+      - description: Product
+        in: body
+        name: SaveProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/product.SaveProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.SaveProductResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: save product
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: actualiza un producto
+      operationId: productPut
+      parameters:
+      - description: Product
+        in: body
+        name: UpdateProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/product.UpdateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.UpdateProductResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: update product by sku
+      tags:
+      - Product
+  /product/{sku}:
+    delete:
+      consumes:
+      - application/json
+      description: elimina un producto
+      operationId: productDelete
+      parameters:
+      - description: Sku
+        in: path
+        name: sku
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.DeleteProductResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: delete product by sku
+      tags:
+      - Product
+    get:
+      consumes:
+      - application/json
+      description: obtiene producto por sku
+      operationId: productGet
+      parameters:
+      - description: Sku
+        in: path
+        name: sku
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.GetProductResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: get product by sku
+      tags:
+      - Product
+  /products/findAll:
+    get:
+      consumes:
+      - application/json
+      description: obtiene todos los productos
+      operationId: findAllProductsGet
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.FindAllProductsResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: Find all products
+      tags:
+      - Products
+swagger: "2.0"
